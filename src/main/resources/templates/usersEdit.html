@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:spring="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+   table {
+    margin: auto; /* Выравниваем таблицу по центру */
+    border: #ffba52;
+   }
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+    color: #000 !important;
+   }
+   button {
+    background: #ffe5b4; /*  цвет фона */
+    color: #000; /*цвет текста */
+
+    }
+    </style>
+</head>
+<body>
+<table width="70%" border="1" cellspacing=2 cellpadding=15>
+
+    <tr>
+        <th>Name</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+
+
+
+
+    <tr>
+        <form method="POST" modelAttribute="userForm">
+
+            <td>
+                <from>
+                    <input type="text" name="name">
+                </from>
+            </td>
+
+            <td>
+                <from>
+                    <input type="text" name="LastName">
+                </from>
+            </td>
+            <td>
+                <from>
+                    <input type="number" name="age">
+                </from>
+            </td>
+            <td>
+                <from>
+                    <input type="text" name="email">
+                </from>
+            </td>
+            <td>
+                <form>
+                    <button formaction="/users/edit" formmethod="post" type="submit" value="Save">Save</button>
+
+                </form>
+            </td>
+
+        </form>
+    </tr>
+
+</table>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</body>
+</html>
