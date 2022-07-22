@@ -5,10 +5,7 @@ import com.example.preproj.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ControllerUser {
@@ -38,20 +35,22 @@ public class ControllerUser {
 
 
     @GetMapping("/users/edit")
-    public String edit(@RequestParam Integer userId, @ModelAttribute("userForm") User userForm, Model model) {
-
-        User user = userRepo.findById(userId).get();
-
+    public String edit(@RequestParam("userId")Integer userId, Model model) {
+        User user=userRepo.findById(userId).orElseThrow();
         model.addAttribute("usersEdit",user);
         return "usersEdit";
     }
 
 
     @PostMapping("/users/edit")
-    public String postEdit(@RequestParam(name = "userId", required = false) String userId,@ModelAttribute("userForm") User userForm, Model model) {
-        System.out.println(userId);
-        System.out.println(userForm);
-        return "users";
+    public String postEdit(@RequestParam("userId")Integer userEditId,@ModelAttribute("userForm") User userForm, Model model) {
+        User user=userRepo.findById(userEditId).orElseThrow();
+        user.setName(userForm.getName());
+        user.setLastName(userForm.getLastName());
+        user.setAge(userForm.getAge());
+        user.setEmail(userForm.getEmail());
+        model.addAttribute("users", userRepo.save(user));
+        return "redirect:/users";
     }
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:spring="">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:spring="" xmlns:el="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +9,7 @@
     border: #ffba52;
    }
    a {
-    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+    text-decoration: none;
     color: #000 !important;
    }
    button {
@@ -20,6 +20,7 @@
     </style>
 </head>
 <body>
+<h1 align="center">Редактирование пользователя</h1>
 <table width="70%" border="1" cellspacing=2 cellpadding=15>
 
     <tr>
@@ -30,45 +31,31 @@
         <th>Actions</th>
     </tr>
 
-
-
-
-    <tr>
+<tr>
+<div>
+    <div th:each="el:${usersEdit}">
         <form method="POST" modelAttribute="userForm">
-
             <td>
-                <from>
-                    <input type="text" name="name">
-                </from>
-            </td>
-
-            <td>
-                <from>
-                    <input type="text" name="LastName">
-                </from>
+            <input type="text" th:value="${el.name}" name="name">
             </td>
             <td>
-                <from>
-                    <input type="number" name="age">
-                </from>
+            <input type="text" th:value="${el.lastName}" name="lastName">
             </td>
             <td>
-                <from>
-                    <input type="text" name="email">
-                </from>
+            <input type="number" th:value="${el.age}" name="age">
             </td>
             <td>
-                <form>
-                    <button formaction="/users/edit" formmethod="post" type="submit" value="Save">Save</button>
-
-                </form>
+            <input type="text" th:value="${el.email}" name="email">
             </td>
-
+            <td>
+                <button><a>Save</a></button>
+            </td>
         </form>
+    </div>
+</div>
     </tr>
 
 </table>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </body>
 </html>
