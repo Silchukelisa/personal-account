@@ -1,4 +1,5 @@
 package com.example.preproj.model;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,11 +26,11 @@ public class User {
     public User() {
     }
 
-    public User(String name,String lastName,int age,String email) {
-        this.name=name;
-        this.lastName=lastName;
-        this.age=age;
-        this.email=email;
+    public User(String name, String lastName, int age, String email) {
+        this.name = name;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
     }
 
     public int getId() {
