@@ -1,10 +1,10 @@
 package com.example.preproj.repo;
 
-import com.example.preproj.model.User;
+import com.example.preproj.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, Integer> {
-    User findByUsername(String username);
+public interface RoleRepo extends JpaRepository<Role, Long> {
+
 }

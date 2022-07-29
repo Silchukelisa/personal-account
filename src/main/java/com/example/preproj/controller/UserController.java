@@ -1,35 +1,88 @@
 package com.example.preproj.controller;
 
+import com.example.preproj.config.service.UserDetailsService;
 import com.example.preproj.model.User;
 import com.example.preproj.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 public class UserController {
 
     @Autowired
+    private UserDetailsService userService;
+
+    @Autowired
     private UserRepo userRepo;
 
-    @GetMapping("/users")
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+
+    @GetMapping("/registration")
+    public String registration(Model model) {
+        model.addAttribute("userForm", new User());
+        return "registration";
+    }
+
+    @PostMapping("/regSave")
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "registration";
+        }
+
+        if (!userService.saveUser(userForm)){
+            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
+            return "registration";
+        }
+
+        return "redirect:/user";
+    }
+
+
+    @GetMapping("/user")
+    public String user(Model model, Principal principal) {
+        User user = userRepo.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+        return "user";
+    }
+
+    @GetMapping("/admin")
+    public String admin(Model model, Principal principal) {
+        User user = userRepo.findByUsername(principal.getName());
+        model.addAttribute("adminUser", user);
+        return "adminUser";
+
+    }
+
+    @GetMapping("/admin/users")
     public String users(Model model) {
         model.addAttribute("users", userRepo.findAll());
         return "users";
     }
 
-    @PostMapping("/users/add")
+    @PostMapping("/admin/users/add")
     public String saveUsers(@ModelAttribute("userForm") User userForm, Model model) {
         model.addAttribute("users", userRepo.save(userForm));
         model.addAttribute("users", userRepo.findAll());
         return "users";
     }
 
-    @GetMapping("/users/delete")
+    @GetMapping("/admin/users/delete")
     public String deleteUser(@RequestParam Integer userId, Model model) {
         userRepo.deleteById(userId);
         model.addAttribute("users", userRepo.findAll());
@@ -37,7 +90,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/users/edit")
+    @GetMapping("/admin/users/edit")
     public String edit(@RequestParam("userId") Integer userId, Model model) {
         User user = userRepo.findById(userId).orElseThrow();
         model.addAttribute("usersEdit", user);
@@ -45,7 +98,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/users/edit")
+    @PostMapping("/admin/users/edit")
     public String postEdit(@RequestParam("userId") Integer userEditId, @ModelAttribute("userForm") User userForm, Model model) {
         User user = userRepo.findById(userEditId).orElseThrow();
         user.setName(userForm.getName());
@@ -53,7 +106,7 @@ public class UserController {
         user.setAge(userForm.getAge());
         user.setEmail(userForm.getEmail());
         model.addAttribute("users", userRepo.save(user));
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
 

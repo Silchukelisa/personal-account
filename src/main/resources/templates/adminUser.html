@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:spring=""
+      xmlns:margin-left="http://www.w3.org/1999/xhtml" xmlns:left="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    form { display : inline-block; }
+
+   table {
+    margin: auto; /* Выравниваем таблицу по центру */
+    border: #ffba52;
+   }
+   a {
+    text-decoration: none;
+    color: #000 !important;
+
+   }
+   .all button {
+   background: #ffe5b4; /*  цвет фона */
+   color: #000; /*цвет текста */
+   margin-left: 229px;
+   margin-top: 0.5%;
+    }
+    .exit button{
+    background: #ffe5b4; /*  цвет фона */
+   color: #000; /*цвет текста */
+   margin-left: 230px;
+   margin-top: 0.5%;
+    }
+
+
+
+    </style>
+</head>
+<body>
+<table width="70%" border="1" cellspacing=2 cellpadding=15>
+
+    <tr>
+        <th>Name</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>Email</th>
+    </tr>
+
+
+    <tr th:each="adminUser, state : ${adminUser}">
+        <td th:utext="${adminUser.name}">name</td>
+        <td th:utext="${adminUser.lastName}">lastName</td>
+        <td th:utext="${adminUser.age}">age</td>
+        <td th:utext="${adminUser.email}">email</td>
+
+    </tr>
+
+</table>
+
+<td>
+
+            <div class="all">
+                <button formaction="/admin/users" class="btn btn-primary btn-block create-account" formmethod="get"
+                        type="submit"
+                        value="All Users"><a href="/admin/users">All Users</a></button>
+            </div>
+            <div class="exit">
+                <button formaction="/logout" class="btn btn-primary btn-block create-account" formmethod="get"
+                        type="submit"
+                        value="exit"><a href="/logout">Exit</a></button>
+            </div>
+
+</td>
+</body>
+</html>

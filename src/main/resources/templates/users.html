@@ -12,11 +12,17 @@
     text-decoration: none;
     color: #000 !important;
    }
-   button {
-    background: #ffe5b4; /*  цвет фона */
-    color: #000; /*цвет текста */
-
+  button {
+   background: #ffe5b4; /*  цвет фона */
+   color: #000; /*цвет текста */
     }
+    .button button{
+   background: #ffe5b4; /*  цвет фона */
+   color: #000; /*цвет текста */
+   margin-left: 229px;
+   margin-top: 0.5%;
+    }
+
     </style>
 </head>
 <body>
@@ -38,8 +44,8 @@
         <td th:utext="${users.email}">email</td>
         <td>
             <form>
-                <button><a th:href="@{/users/delete(userId=${users.id})}">Delete</a></button>
-                <button><a th:href="@{/users/edit(userId=${users.id})}">Edit</a></button>
+                <button><a th:href="@{/admin/users/delete(userId=${users.id})}">Delete</a></button>
+                <button><a th:href="@{/admin/users/edit(userId=${users.id})}">Edit</a></button>
             </form>
         </td>
 
@@ -62,7 +68,7 @@
                         <input type="text" placeholder="email" name="email">
                     </td>
                     <td>
-                        <button formaction="/users/add" formmethod="post" type="submit" value="Add">Add</button>
+                        <button formaction="/admin/users/add" formmethod="post" type="submit" value="Add">Add</button>
                     </td>
                 </form>
             </div>
@@ -70,5 +76,9 @@
     </tr>
 
 </table>
+<div class="button">
+<button formaction="/admin/users" class="btn btn-primary btn-block create-account" formmethod="get" type="submit"
+        value="All Users" ><a href="/admin" >Home</a></button>
+</div>
 </body>
 </html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        html {
+  background-color:#214c84;
+  background-blend-mode:overlay;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background-repeat:no-repeat;
+  background-size:cover;
+  height:100%;
+}
+
+body {
+  background-color:transparent;
+}
+
+.registration-cssave{
+  padding:50px 0;
+
+}
+
+.registration-cssave form {
+  max-width:800px;
+  padding:50px 70px;
+  border-radius:10px;
+  box-shadow:4px 4px 15px rgba(0, 0, 0, 0.2);
+  background-color:#fff;
+}
+
+.registration-cssave form h3 {
+  font-weight:bold;
+  margin-bottom:30px;
+}
+
+.registration-cssave .item {
+  border-radius:10px;
+  margin-bottom:25px;
+  padding:10px 40px;
+}
+
+.registration-cssave .create-account {
+  border-radius:30px;
+  padding:10px 20px;
+  font-size:18px;
+  font-weight:bold;
+  background-color:#3f93ff;
+  border:none;
+  color:white;
+  margin-top:20px;
+}
+
+@media (max-width: 576px) {
+  .registration-cssave form {
+    padding:30px 20px;
+  }
+}
+
+
+    </style>
+</head>
+<body>
+
+
+<div class="registration-cssave">
+    <form method="POST" modelAttribute="userForm">
+
+        <div class="form-group">
+            <label for="name">Введите имя пользователя: </label>
+            <input class="form-control item" type="text" name="name" id="name"/>
+        </div>
+        <br/>
+        <div class="form-group">
+            <label for="lastName">Введите фамилию: </label>
+            <input class="form-control item" type="text" name="lastName" id="lastName"/>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="age">Введите возраст: </label>
+            <input class="form-control item" type="number" name="age" id="age"/>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="email">Введите почту: </label>
+            <input class="form-control item" type="text" name="email" id="email"/>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="password">Введите пароль: </label>
+            <input class="form-control item" type="password" name="password" id="password"/>
+        </div>
+        <br/>
+
+        <div class="form-group">
+            <label for="username">Введите логин: </label>
+            <input class="form-control item" type="text" name="username" id="username"/>
+        </div>
+        <br/>
+
+
+        <button formaction="/regSave" class="btn btn-primary btn-block create-account" type="submit">
+            Зарегистрироваться
+        </button>
+    </form>
+</div>
+</body>
+</html>

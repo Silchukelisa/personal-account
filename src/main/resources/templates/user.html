@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:spring="">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+   table {
+    margin: auto; /* Выравниваем таблицу по центру */
+    border: #ffba52;
+   }
+   a {
+    text-decoration: none;
+    color: #000 !important;
+   }
+   button {
+    background: #ffe5b4; /*  цвет фона */
+    color: #000; /*цвет текста */
+    margin-left: 229px;
+    }
+
+    </style>
+</head>
+<body>
+<table width="70%" border="1" cellspacing=2 cellpadding=15>
+
+    <tr>
+        <th>Name</th>
+        <th>LastName</th>
+        <th>Age</th>
+        <th>Email</th>
+    </tr>
+
+
+    <tr th:each="user, state : ${user}">
+        <td th:utext="${user.name}">name</td>
+        <td th:utext="${user.lastName}">lastName</td>
+        <td th:utext="${user.age}">age</td>
+        <td th:utext="${user.email}">email</td>
+    </tr>
+
+</table>
+<td>
+
+    <div class="exit">
+        <button formaction="/logout" class="btn btn-primary btn-block create-account" formmethod="get"
+                type="submit"
+                value="exit"><a href="/logout">Exit</a></button>
+    </div>
+
+</td>
+</body>
+</html>
