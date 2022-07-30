@@ -15,8 +15,14 @@
    button {
     background: #ffe5b4; /*  цвет фона */
     color: #000; /*цвет текста */
-
     }
+.exit button{
+    background: #ffe5b4; /*  цвет фона */
+   color: #000; /*цвет текста */
+   margin-left: 285px;
+   margin-top: 0.5%;
+    }
+
     </style>
 </head>
 <body>
@@ -28,34 +34,50 @@
         <th>LastName</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Password</th>
+        <th>UserName</th>
         <th>Actions</th>
     </tr>
 
-<tr>
-<div>
-    <div th:each="el:${usersEdit}">
-        <form method="POST" modelAttribute="userForm">
-            <td>
-            <input type="text" th:value="${el.name}" name="name">
-            </td>
-            <td>
-            <input type="text" th:value="${el.lastName}" name="lastName">
-            </td>
-            <td>
-            <input type="number" th:value="${el.age}" name="age">
-            </td>
-            <td>
-            <input type="text" th:value="${el.email}" name="email">
-            </td>
-            <td>
-                <button><a>Save</a></button>
-            </td>
-        </form>
-    </div>
-</div>
+    <tr>
+        <div>
+            <div th:each="el:${usersEdit}">
+                <form method="POST" modelAttribute="userForm">
+                    <td>
+                        <input type="text" th:value="${el.name}" name="name">
+                    </td>
+                    <td>
+                        <input type="text" th:value="${el.lastName}" name="lastName">
+                    </td>
+                    <td>
+                        <input type="number" th:value="${el.age}" name="age">
+                    </td>
+                    <td>
+                        <input type="text" th:value="${el.email}" name="email">
+                    </td>
+                    <td>
+                        <input type="text" th:value="${el.password}" name="password">
+                    </td>
+                    <td>
+                        <input type="text" th:value="${el.userName}" name="userName">
+                    </td>
+                    <td>
+                        <button><a>Save</a></button>
+                    </td>
+                </form>
+            </div>
+        </div>
     </tr>
 
 </table>
+<td>
 
+    <div class="exit">
+        <button formaction="/logout" class="btn btn-primary btn-block create-account" formmethod="get"
+                type="submit"
+                value="exit"><a href="/logout">Exit</a></button>
+    </div>
+
+</td>
 </body>
 </html>

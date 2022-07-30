@@ -15,7 +15,7 @@
    button {
     background: #ffe5b4; /*  цвет фона */
     color: #000; /*цвет текста */
-    margin-left: 229px;
+    margin-left: 286px;
     }
 
     </style>
@@ -28,6 +28,8 @@
         <th>LastName</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Password</th>
+        <th>UserName</th>
     </tr>
 
 
@@ -36,6 +38,8 @@
         <td th:utext="${user.lastName}">lastName</td>
         <td th:utext="${user.age}">age</td>
         <td th:utext="${user.email}">email</td>
+        <td th:utext="${user.password}">password</td>
+        <td th:utext="${user.userName}">userName</td>
     </tr>
 
 </table>

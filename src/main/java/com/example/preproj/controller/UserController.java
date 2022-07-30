@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -25,7 +26,7 @@ public class UserController {
     private UserRepo userRepo;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/login")
     public String login() {
@@ -40,15 +41,9 @@ public class UserController {
     }
 
     @PostMapping("/regSave")
-    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
+    public String registration(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
 
-        if (!userService.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
-        }
+        userService.saveUser(userForm);
 
         return "redirect:/user";
     }
@@ -56,14 +51,14 @@ public class UserController {
 
     @GetMapping("/user")
     public String user(Model model, Principal principal) {
-        User user = userRepo.findByUsername(principal.getName());
+        User user = userRepo.findByUserName(principal.getName());
         model.addAttribute("user", user);
         return "user";
     }
 
     @GetMapping("/admin")
     public String admin(Model model, Principal principal) {
-        User user = userRepo.findByUsername(principal.getName());
+        User user = userRepo.findByUserName(principal.getName());
         model.addAttribute("adminUser", user);
         return "adminUser";
 
@@ -77,7 +72,7 @@ public class UserController {
 
     @PostMapping("/admin/users/add")
     public String saveUsers(@ModelAttribute("userForm") User userForm, Model model) {
-        model.addAttribute("users", userRepo.save(userForm));
+        userService.saveUser(userForm);
         model.addAttribute("users", userRepo.findAll());
         return "users";
     }
@@ -105,6 +100,8 @@ public class UserController {
         user.setLastName(userForm.getLastName());
         user.setAge(userForm.getAge());
         user.setEmail(userForm.getEmail());
+        user.setPassword(userForm.getPassword());
+        user.setUserName(userForm.getUserName());
         model.addAttribute("users", userRepo.save(user));
         return "redirect:/admin/users";
     }

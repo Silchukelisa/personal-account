@@ -3,6 +3,7 @@ package com.example.preproj.config.service;
 
 import com.example.preproj.model.Role;
 import com.example.preproj.model.User;
+import com.example.preproj.repo.RoleRepo;
 import com.example.preproj.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,9 @@ import java.util.Collections;
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
+    @Autowired
+    private RoleRepo roleRepo;
+
     @PersistenceContext
     private EntityManager em;
 
@@ -28,7 +32,7 @@ public class UserDetailsService implements org.springframework.security.core.use
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        User myUser = userRepo.findByUsername(username);
+        User myUser = userRepo.findByUserName(username);
         if (myUser == null) {
             throw new UsernameNotFoundException(username);
         }
@@ -36,7 +40,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     }
 
     public boolean saveUser(User user) {
-        User userFromDB = userRepo.findByUsername(user.getUsername());
+        User userFromDB = userRepo.findByUserName(user.getUsername());
 
         if (userFromDB != null) {
             return false;

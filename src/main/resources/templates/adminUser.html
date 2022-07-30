@@ -20,13 +20,13 @@
    .all button {
    background: #ffe5b4; /*  цвет фона */
    color: #000; /*цвет текста */
-   margin-left: 229px;
+   margin-left: 285px;
    margin-top: 0.5%;
     }
     .exit button{
     background: #ffe5b4; /*  цвет фона */
    color: #000; /*цвет текста */
-   margin-left: 230px;
+   margin-left: 285px;
    margin-top: 0.5%;
     }
 
@@ -42,6 +42,8 @@
         <th>LastName</th>
         <th>Age</th>
         <th>Email</th>
+        <th>Password</th>
+        <th>UserName</th>
     </tr>
 
 
@@ -50,6 +52,8 @@
         <td th:utext="${adminUser.lastName}">lastName</td>
         <td th:utext="${adminUser.age}">age</td>
         <td th:utext="${adminUser.email}">email</td>
+        <td th:utext="${adminUser.password}">password</td>
+        <td th:utext="${adminUser.userName}">userName</td>
 
     </tr>
 
