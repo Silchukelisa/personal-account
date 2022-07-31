@@ -1,7 +1,9 @@
 package com.example.preproj.controller;
 
 import com.example.preproj.config.service.UserDetailsService;
+import com.example.preproj.model.Role;
 import com.example.preproj.model.User;
+import com.example.preproj.repo.RoleRepo;
 import com.example.preproj.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,9 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private RoleRepo roleRepo;
 
     @Autowired
     private UserDetailsService userService;
@@ -42,8 +49,8 @@ public class UserController {
 
     @PostMapping("/regSave")
     public String registration(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
-
-        userService.saveUser(userForm);
+        String[] role  = new String[] {"ROLE_USER"};
+        userService.saveUser(userForm,role);
 
         return "redirect:/user";
     }
@@ -71,8 +78,8 @@ public class UserController {
     }
 
     @PostMapping("/admin/users/add")
-    public String saveUsers(@ModelAttribute("userForm") User userForm, Model model) {
-        userService.saveUser(userForm);
+    public String saveUsers(@ModelAttribute("userForm") User userForm,@RequestParam("vehicle") String[] role, Model model) {
+        userService.saveUser(userForm,role);
         model.addAttribute("users", userRepo.findAll());
         return "users";
     }
@@ -89,12 +96,13 @@ public class UserController {
     public String edit(@RequestParam("userId") Integer userId, Model model) {
         User user = userRepo.findById(userId).orElseThrow();
         model.addAttribute("usersEdit", user);
+        model.addAttribute("roles", roleRepo.findAll());
         return "usersEdit";
     }
 
 
     @PostMapping("/admin/users/edit")
-    public String postEdit(@RequestParam("userId") Integer userEditId, @ModelAttribute("userForm") User userForm, Model model) {
+    public String postEdit(@RequestParam("userId") Integer userEditId, @RequestParam("vehicle") String[] role, @ModelAttribute("userForm") User userForm, Model model) {
         User user = userRepo.findById(userEditId).orElseThrow();
         user.setName(userForm.getName());
         user.setLastName(userForm.getLastName());
@@ -102,6 +110,16 @@ public class UserController {
         user.setEmail(userForm.getEmail());
         user.setPassword(userForm.getPassword());
         user.setUserName(userForm.getUserName());
+        Set<Role> set = new HashSet<>();
+        for (String s : role) {
+            if(s.equals("ROLE_USER")){
+                set.add(new Role(1L,"ROLE_USER"));
+            }
+            if(s.equals("ROLE_ADMIN")){
+                set.add(new Role(2L,"ROLE_ADMIN"));
+            }
+        }
+        user.setRoles(set);
         model.addAttribute("users", userRepo.save(user));
         return "redirect:/admin/users";
     }

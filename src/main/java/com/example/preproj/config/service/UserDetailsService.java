@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
@@ -39,14 +40,22 @@ public class UserDetailsService implements org.springframework.security.core.use
         return myUser;
     }
 
-    public boolean saveUser(User user) {
+    public boolean saveUser(User user,String[] role) {
         User userFromDB = userRepo.findByUserName(user.getUsername());
 
         if (userFromDB != null) {
             return false;
         }
-
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        Set<Role> set = new HashSet<>();
+        for (String s : role) {
+            if(s.equals("ROLE_USER")){
+                set.add(new Role(1L,"ROLE_USER"));
+            }
+            if(s.equals("ROLE_ADMIN")){
+                set.add(new Role(2L,"ROLE_ADMIN"));
+            }
+        }
+        user.setRoles(set);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         return true;

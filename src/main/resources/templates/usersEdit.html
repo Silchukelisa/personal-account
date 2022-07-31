@@ -23,6 +23,12 @@
    margin-top: 0.5%;
     }
 
+
+
+
+
+
+
     </style>
 </head>
 <body>
@@ -36,37 +42,43 @@
         <th>Email</th>
         <th>Password</th>
         <th>UserName</th>
+        <th>Roles</th>
         <th>Actions</th>
     </tr>
 
     <tr>
-        <div>
-            <div th:each="el:${usersEdit}">
-                <form method="POST" modelAttribute="userForm">
-                    <td>
-                        <input type="text" th:value="${el.name}" name="name">
-                    </td>
-                    <td>
-                        <input type="text" th:value="${el.lastName}" name="lastName">
-                    </td>
-                    <td>
-                        <input type="number" th:value="${el.age}" name="age">
-                    </td>
-                    <td>
-                        <input type="text" th:value="${el.email}" name="email">
-                    </td>
-                    <td>
-                        <input type="text" th:value="${el.password}" name="password">
-                    </td>
-                    <td>
-                        <input type="text" th:value="${el.userName}" name="userName">
-                    </td>
-                    <td>
-                        <button><a>Save</a></button>
-                    </td>
-                </form>
-            </div>
+        <div th:each="el:${usersEdit}">
+            <form method="POST" modelAttribute="userForm">
+                <td>
+                    <input type="text" th:value="${el.name}" name="name">
+                </td>
+                <td>
+                    <input type="text" th:value="${el.lastName}" name="lastName">
+                </td>
+                <td>
+                    <input type="number" th:value="${el.age}" name="age">
+                </td>
+                <td>
+                    <input type="text" th:value="${el.email}" name="email">
+                </td>
+                <td>
+                    <input type="text" th:value="${el.password}" name="password">
+                </td>
+                <td>
+                    <input type="text" th:value="${el.userName}" name="userName">
+                </td>
+
+                <td>
+                    <input type="checkbox" name="vehicle" value="ROLE_ADMIN">Admin<br>
+                    <input type="checkbox" name="vehicle" value="ROLE_USER" checked>User
+                    <br><br>
+                </td>
+                <td>
+                    <button><a>Save</a></button>
+                </td>
+            </form>
         </div>
+
     </tr>
 
 </table>
