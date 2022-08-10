@@ -1,8 +1,8 @@
 package com.example.preproj.controller;
 
-import com.example.preproj.config.service.UserDetailsService;
 import com.example.preproj.model.User;
 import com.example.preproj.repo.UserRepo;
+import com.example.preproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ import java.security.Principal;
 public class UserController {
 
     @Autowired
-    private UserDetailsService userService;
+    public UserService userService;
 
     @Autowired
     private UserRepo userRepo;

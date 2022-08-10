@@ -25,10 +25,10 @@ $(document).ready(function () {
 
 function getRole(address) {
     if(address.val()==2){
-    return "/adduser/ROLE_USER";
+    return "/actions/ROLE_USER";
     }
     if(address.val()==1){
-        return "/adduser/ROLE_ADMIN";
+        return "/actions/ROLE_ADMIN";
         }
 }
 
@@ -43,7 +43,7 @@ function restartAllUser() {
 
     UserTableBody.children().remove();
 
-    fetch("allusers")
+    fetch("actions/")
         .then((response) => {
             response.json().then(data => data.forEach(function (item, i, data) {
                 let TableRow = createTableRow(item);
@@ -68,8 +68,8 @@ function createTableRow(u) {
             <td>${u.username}</td>
             <td>${userRole}</td>
             <td>
-            <a  href="/eBtn/${u.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info eBtn">Edit</a>
-            <a  href="/delete/${u.id}" class="btn btn-danger delBtn">Delete</a>
+            <a  href="/actions/${u.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info eBtn">Edit</a>
+            <a  href="/actions/${u.id}" class="btn btn-danger delBtn">Delete</a>
             </td>
         </tr>`;
 }
@@ -113,16 +113,16 @@ document.addEventListener('click', function (event) {
 
     function getRoleEdit(address) {
         if(address.val()==2){
-        return "/edit/ROLE_USER";
+        return "/actions/ROLE_USER";
         }
         if(address.val()==1){
-            return "/edit/ROLE_ADMIN";
+            return "/actions/ROLE_ADMIN";
             }
     }
 
     function editModalButton(user,href) {
         fetch(href, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json;charset=utf-8"
             },
@@ -136,7 +136,7 @@ document.addEventListener('click', function (event) {
 
 function delModalButton(href) {
     fetch(href, {
-        method: "GET",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json;charset=utf-8"
         }
@@ -157,4 +157,3 @@ function openRole(evt, role) {
     evt.currentTarget.className += " active";
 }
 document.getElementById("defaultOpen").click();
-

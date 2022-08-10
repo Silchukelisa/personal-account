@@ -45,14 +45,14 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <a class="nav-link active" id="Users-table-tab" data-bs-toggle="tab" data-bs-target="#Users-table"
-                    type="button"
-                    role="tab" aria-controls="Users-table" aria-selected="true" href="#users">Users table
+               type="button"
+               role="tab" aria-controls="Users-table" aria-selected="true" href="#users">Users table
             </a>
         </li>
 
         <li class="nav-item" role="presentation">
             <a class="nav-link" id="New-user-tab" data-bs-toggle="tab" data-bs-target="#New-user" type="button"
-                    role="tab" aria-controls="New-user" aria-selected="false" href="#new">New user
+               role="tab" aria-controls="New-user" aria-selected="false" href="#new">New user
             </a>
         </li>
     </ul>
@@ -128,9 +128,9 @@
     </div>
 </div>
 <div class="editUser" align="center">
-    <form action="/edit" method="PUT">
+    <form action="/actions/{role}" method="PUT">
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-        style="height:1000px">
+             style="height:1000px">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -159,11 +159,11 @@
                         <input type="text" class="form-control" id="userNameEd" name="userName" value="">
 
                         <b>Role</b><br>
-                            <select multiple size="2" name="select_role"
-                                    id="selectRoleEd">
-                                <option name="ROLE_ADMIN" value="1">ADMIN</option>
-                                <option name="ROLE_USER" value="2" selected="selected" >USER</option>
-                            </select>
+                        <select multiple size="2" name="select_role"
+                                id="selectRoleEd">
+                            <option name="ROLE_ADMIN" value="1">ADMIN</option>
+                            <option name="ROLE_USER" value="2" selected="selected" >USER</option>
+                        </select>
                         </br>
                     </div>
                     <div class="modal-footer">
