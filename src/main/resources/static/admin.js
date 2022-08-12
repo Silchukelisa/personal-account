@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     restartAllUser();
     $('.buttonAdd').on('click', function (event) {
@@ -31,8 +30,6 @@ function getRole(address) {
         return "/actions/ROLE_ADMIN";
         }
 }
-
-
 
 function openTabById(tab) {
     $('.nav-item a[href="#' + tab + '"]').tab('show');
@@ -68,12 +65,11 @@ function createTableRow(u) {
             <td>${u.username}</td>
             <td>${userRole}</td>
             <td>
-            <a  href="/actions/${u.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info eBtn">Edit</a>
+            <a  href="/actions/${u.id}" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary eBtn">Edit</a>
             <a  href="/actions/${u.id}" class="btn btn-danger delBtn">Delete</a>
             </td>
         </tr>`;
 }
-
 
 document.addEventListener('click', function (event) {
     event.preventDefault()
@@ -111,7 +107,8 @@ document.addEventListener('click', function (event) {
         }
     });
 
-    function getRoleEdit(address) {
+
+function getRoleEdit(address) {
         if(address.val()==2){
         return "/actions/ROLE_USER";
         }
@@ -120,7 +117,7 @@ document.addEventListener('click', function (event) {
             }
     }
 
-    function editModalButton(user,href) {
+function editModalButton(user,href) {
         fetch(href, {
             method: "PUT",
             headers: {

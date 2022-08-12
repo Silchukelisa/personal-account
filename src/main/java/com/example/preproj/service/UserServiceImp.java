@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -22,6 +23,11 @@ public class UserServiceImp implements UserService{
     @Override
     public void delete(int id) {
         userRepo.deleteById(id);
+    }
+
+    @Override
+    public List<User> allUsers() {
+       return userRepo.findAll();
     }
 
     @Override

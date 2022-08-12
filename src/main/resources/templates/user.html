@@ -76,7 +76,7 @@
 
                 </tr>
                 </thead>
-                <tbody>
+                <tbody id="data">
                 <tr th:each="user, state : ${user}">
                     <td th:utext="${user.id}">id</td>
                     <td th:utext="${user.name}">name</td>
@@ -85,13 +85,17 @@
                     <td th:utext="${user.password}">password</td>
                     <td th:utext="${user.userName}">userName</td>
                     <td th:utext="${user.roles}">roles</td>
+
                 </tr>
                 </tbody>
             </table>
         </div>
+        <button class="btn btn-info makeAdmin" type="button"  id="makeAdmin">
+           Хочу быть админом
+        </button>
     </div>
 </div>
-
-<script type="text/javascript" src="js.js"></script>
+<script type="text/javascript" src="admin.js"></script>
+<script type="text/javascript" src="email.js"></script>
 </body>
 </html>
