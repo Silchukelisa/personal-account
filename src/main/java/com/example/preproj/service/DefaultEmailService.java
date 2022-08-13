@@ -17,6 +17,7 @@ public class DefaultEmailService implements EmailService {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(toAddress);
+        simpleMailMessage.setFrom("silchukelisa@gmail.com");
         simpleMailMessage.setSubject(subject);
         simpleMailMessage.setText(message);
         emailSender.send(simpleMailMessage);
