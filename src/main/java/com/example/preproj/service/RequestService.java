@@ -7,10 +7,7 @@ import com.example.preproj.repo.RequestRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RequestService {
@@ -21,14 +18,12 @@ public class RequestService {
     @Autowired
     RequestRepo requestRepo;
 
+    @Autowired
+    private EmailService emailService;
+
 
     public void add(int userId) {
         requestRepo.save(new Request(userId));
-    }
-
-
-    public List<Request> reqUsers() {
-        return requestRepo.findAll();
     }
 
 
@@ -43,6 +38,15 @@ public class RequestService {
 
     }
 
+    public List<User> allRequest() {
+        List<Request> list = requestRepo.findAll();
+        List<User> userList = new ArrayList<>();
+        for (Request request : list) {
+            userList.add(userService.show(request.getUserId()));
+        }
+        return userList;
+    }
+
 
     public void delete(int userId) {
         requestRepo.deleteById(userId);
@@ -52,5 +56,24 @@ public class RequestService {
     public Request show(int id) {
         Optional<Request> optionalUser = requestRepo.findById(id);
         return optionalUser.get();
+    }
+
+    public boolean showBool(int id) {
+        return show(id) != null;
+    }
+
+    public void mailAdmin(int id) {
+        add(id);
+        emailService.mailAdmin(id);
+    }
+
+    public void acceptedApplication(int id) {
+        emailService.acceptedApplication(id);
+        update(id);
+    }
+
+    public void rejectedApplication(int id) {
+        emailService.rejectedApplication(id);
+        delete(id);
     }
 }
