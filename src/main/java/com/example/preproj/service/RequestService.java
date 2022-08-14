@@ -21,12 +21,6 @@ public class RequestService {
     @Autowired
     private EmailService emailService;
 
-
-    public void add(int userId) {
-        requestRepo.save(new Request(userId));
-    }
-
-
     public void update(int userId) {
         Set<Role> set = new HashSet<>();
         User user = userService.show(userId);
@@ -48,11 +42,6 @@ public class RequestService {
     }
 
 
-    public void delete(int userId) {
-        requestRepo.deleteById(userId);
-    }
-
-
     public Request show(int id) {
         Optional<Request> optionalUser = requestRepo.findById(id);
         return optionalUser.get();
@@ -63,7 +52,7 @@ public class RequestService {
     }
 
     public void mailAdmin(int id) {
-        add(id);
+        requestRepo.save(new Request(id));
         emailService.mailAdmin(id);
     }
 
@@ -74,6 +63,6 @@ public class RequestService {
 
     public void rejectedApplication(int id) {
         emailService.rejectedApplication(id);
-        delete(id);
+        requestRepo.deleteById(id);
     }
 }
