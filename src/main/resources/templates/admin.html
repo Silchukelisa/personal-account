@@ -55,11 +55,42 @@
                role="tab" aria-controls="New-user" aria-selected="false" href="#new">New user
             </a>
         </li>
+
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="Requests-tab" data-bs-toggle="tab" data-bs-target="#Req-user" type="button"
+               role="tab" aria-controls="Req-user" aria-selected="false" href="#req">Requests
+            </a>
+        </li>
     </ul>
 
 
     <!--панель с таблицей-->
-    <div class="tab-content" id="myTabContent">
+<div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show " id="Req-user" role="tabpanel" aria-labelledby="Requests-tab">
+        <div class="card" >
+            <h5 class="card-header" >Request</h5>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>UserName</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="request_body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
         <div class="tab-pane fade show active" id="Users-table" role="tabpanel" aria-labelledby="Users-table-tab">
             <div class="card" id="users">
                 <h5 class="card-header" >All users</h5>
@@ -153,7 +184,7 @@
                         <input type="text" class="form-control" id="emailEd" name="email" value="">
 
                         <b>Password</b>
-                        <input type="text" class="form-control" id="passwordEd" name="password" value="">
+                        <input type="password" class="form-control" id="passwordEd" name="password" >
 
                         <b>User name</b>
                         <input type="text" class="form-control" id="userNameEd" name="userName" value="">
@@ -161,7 +192,7 @@
                         <b>Role</b><br>
                         <select multiple size="2" name="select_role"
                                 id="selectRoleEd">
-                            <option name="ROLE_ADMIN" value="1">ADMIN</option>
+                            <option name="ROLE_ADMIN" value="1" selected="selected">ADMIN</option>
                             <option name="ROLE_USER" value="2" selected="selected" >USER</option>
                         </select>
                         </br>
@@ -211,6 +242,6 @@
     </div>
 </div>
 <script type="text/javascript" src="admin.js"></script>
-<script type="text/javascript" src="email.js"></script>
+<!--<script type="text/javascript" src="email.js"></script>-->
 </body>
 </html>

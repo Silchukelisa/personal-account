@@ -1,4 +1,4 @@
-package com.example.preproj.service;
+package com.example.preproj.service.user;
 
 import com.example.preproj.model.Role;
 import com.example.preproj.model.User;
@@ -6,13 +6,14 @@ import com.example.preproj.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
@@ -44,6 +45,12 @@ public class UserServiceImp implements UserService{
         }
         user.setRoles(set);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
+        return true;
+    }
+
+    @Override
+    public boolean updateSave(User user) {
         userRepo.save(user);
         return true;
     }
