@@ -60,7 +60,11 @@ public class EmailService {
         String message = user.getName() + " " + user.getLastName() + " wants to become an admin";
         List<User> allUsers = userService.allUsers();
         requestService.add(id);
-        mail(id, message);
+            for (User u : allUsers) {
+                if (u.getRoles().toString().contains("ROLE_ADMIN")) {
+                    emailService.sendSimpleEmail(u.getEmail(), "Hello", message);
+                }
+            }
     }
 
     public void acceptedApplication(int id) {
