@@ -59,8 +59,8 @@ function requestCreateTableRow(u) {
             <td>${u.username}</td>
             <td>${userRole}</td>
             <td>
-            <a  href="/mails/${u.id}" roles = "${arr}" class="btn btn-success acceptBtn" id="acceptBtn">Accept</a>
-            <a  href="/mails/${u.id}" class="btn btn-danger rejectBtn">Reject</a>
+            <a  href="/requests/${u.id}" roles = "${arr}" class="btn btn-success acceptBtn" id="acceptBtn">Accept</a>
+            <a  href="/requests/${u.id}" class="btn btn-danger rejectBtn">Reject</a>
             </td>
         </tr>`;
 }

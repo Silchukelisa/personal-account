@@ -9,7 +9,7 @@ document.addEventListener('click', function(event) {
     if ($(event.target).hasClass('makeAdmin')) {
         let td = document.getElementById('data').getElementsByTagName('td');
         let id = td[0].innerText;
-        href = "/mails/" + id;
+        href = "requests/mail/" + id;
         makeAdmin(href)
         location.reload();
     }

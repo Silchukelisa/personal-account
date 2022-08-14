@@ -2,7 +2,7 @@ package com.example.preproj.controller;
 
 import com.example.preproj.model.User;
 import com.example.preproj.repo.UserRepo;
-import com.example.preproj.service.user.UserServiceImp;
+import com.example.preproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ public class UserRestController {
     private UserRepo userRepo;
 
     @Autowired
-    private UserServiceImp userService;
+    private UserService userService;
 
     @GetMapping("/")
     public ResponseEntity<List<User>> list() {

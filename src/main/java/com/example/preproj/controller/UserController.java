@@ -2,7 +2,7 @@ package com.example.preproj.controller;
 
 import com.example.preproj.model.User;
 import com.example.preproj.repo.UserRepo;
-import com.example.preproj.service.user.UserService;
+import com.example.preproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
