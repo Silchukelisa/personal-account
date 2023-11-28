@@ -21,9 +21,6 @@ public class User implements UserDetails {
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "age")
-    private int age;
-
     @Column(name = "email")
     private String email;
 
@@ -36,27 +33,25 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+
     public User() {
     }
 
-    public User(String name, String lastName, int age, String email) {
+    public User(String name, String lastName, String email) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
         this.email = email;
     }
 
-    public User(String name, String lastName, int age, String email,String password, String username ) {
+    public User(String name, String lastName, String email, String password, String username, Set<Role> roles) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
         this.email = email;
         this.password = password;
         this.userName = username;
+        this.roles = roles;
 
     }
-
-
 
     public int getId() {
         return id;
@@ -80,14 +75,6 @@ public class User implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getEmail() {
@@ -155,4 +142,16 @@ public class User implements UserDetails {
         return getRoles();
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

@@ -1,15 +1,16 @@
 package com.example.preproj.config;
 
 import com.example.preproj.config.handler.LoginSuccessHandler;
-import com.example.preproj.config.handler.loginFailureHandler;
-import com.example.preproj.config.service.UserDetailsService;
+import com.example.preproj.config.handler.LoginFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -17,16 +18,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity(debug = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsService userService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
     public void setUserService(UserDetailsService userService) {
-        this.userService = userService;
-    }
-
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
+        this.userDetailsService = userService;
     }
 
     @Override
@@ -37,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
                 .successHandler(new LoginSuccessHandler())
-                .failureHandler(new loginFailureHandler())
+                .failureHandler(new LoginFailureHandler())
                 .permitAll();
 
         http.logout()
@@ -61,14 +57,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return new BCryptPasswordEncoder(11);
+        return new BCryptPasswordEncoder(12);
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         final DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
+        authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(getPasswordEncoder());
         return authProvider;
     }
+
 }

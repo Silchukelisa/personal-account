@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
@@ -64,11 +64,8 @@ public class Role implements GrantedAuthority {
         return getName();
     }
 
-    public void addUser(User user) {
-        users.add(user);
-        user.getRoles().add(this);
-    }
-
-    public class USER {
+    @Override
+    public String toString() {
+        return  name ;
     }
 }
